@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  apache:
+    image: httpd:latest
+    ports:
+      - "80:8080"
+    volumes:
+      - ./html:/usr/local/apache2/htdocs
+
+  ssh:
+    image: linuxserver/openssh-server:latest
+    ports:
+      - "8787:8787"
+    environment:
+      - USER=ezequiel
+      - PASSWORD=una-super..contraseña
+
+  mysql:
+    image: mysql:8.1.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: una-super..contraseña
+      MYSQL_DATABASE: ezequiel
+      MYSQL_USER: ezequiel
+      MYSQL_PASSWORD: una-super..contraseña
+
+  ftp:
+    image: onjin/alpine-vsftpd:latest
+    ports:
+      - "21110:21100"
+    environment:
+      FTP_USER: ezequiel
+      FTP_PASSWORD: una-super..contraseña
+      PASV_ADDRESS: una-super..contraseña
